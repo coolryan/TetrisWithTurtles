@@ -1,12 +1,12 @@
 """
-	Filename: main.py
-	Author: Ryan Setaruddin
-	Purpose: To execute the program
-	Date: Feb, 19, 2024
+    Filename: main.py
+    Author: Ryan Setaruddin
+    Purpose: To execute the program
+    Date: Feb, 19, 2024
 """
 
 def main():
-	pass
-	
+    pass
+    
 if __name__ == '__main__':
-	main()
+    main()
