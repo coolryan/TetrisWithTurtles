@@ -2,15 +2,6 @@
     Filename: tetris_model.py
     Author: Ryan Setaruddin
     purpose: To design a game called Tetris
-    by each of classes that may need help with such a base class called
-    Block where it takes 4 paramters in constructor and one draw method
-    in which can not draw its self
-
-    Another base class called IBlock which is drived from Block class
-    must have draw method which takes 4 paramters
-
-    another base class called Tetris which takes 4 paramters in its constructors
-    and one draw method
     This will represents the game
     Date: Feb, 19, 2024
 """
@@ -18,12 +9,47 @@ import turtle
 import time
 import random
 
+# setup window screen
+wn = turtle.Screen()
+wn.title("TETRIS BY Ryan Setaruddin")
+wn.bg,color("black")
+wn.setup(width=600, height=800)
+
+# to create a grid to hold the blocks
+grid = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 2, 3, 4, 5, 6, 0, 1, 2, 3, 4],
+]
+
 class Block:
     """docstring for Block"""
-    def __init__(self, x: int, y: int, color: str, speed: int = 0):
+    def __init__(self, x: int = 230, y: int = -110, colors: list[str], speed: int = 0):
         self.x = x
         self.y = y
-        self.color = color
+        self.colors = colors
         self.speed = speed
 
     def draw(self):
@@ -31,20 +57,28 @@ class Block:
 
 class IBlock(Block):
     """docstring for I_Block"""
-    def draw(self, x: int, y: int, color: str, speed: int):
-        wall = []
-        for i in range(2):
-            block = turtle.Turtle()
-            block.shape("square")
-            block.color("color")
-            block.penup()
-            wall.append(block)
-        wall[0].goto(x, y)
-        wall.stamp()
-        wall[1].goto(x, y)
-        wall.stamp()
+    # to draw the grid
+    def draw_grid(self, x: int: 230, y: int = -110, colors: list[str], speed: int = 0, grid):
+        pen = turtle.Turtle()
+        pen.shape("square")
+        pen.speed(speed)
+        pen.penup()
 
-        return wall
+        top, left = x, y
+
+        colors = ["black", "lightblue", "blue", "orange", "yellow", "green", "purple", "red"]
+
+        for j in range(len(grid)):
+            for i in range(len(grid[0])):
+                screen_x = left + (i * 20)
+                screen_y = top - (j * 20)
+
+                color_number = grid[j][i]
+                color = colors[color_number]
+
+                pen.color(color)
+                pen.goto(screen_x, screen_y)
+                pen.stamp()
 
 class Tetris:
     """docstring for Tetris"""
@@ -54,7 +88,5 @@ class Tetris:
         self.existingBlockState = existingBlockState
         self.score = score
 
-    def draw(self):
-        pass
 
-iblock = IBlock(20, 20 "lightblue", 1)
+wn.mainloop()
