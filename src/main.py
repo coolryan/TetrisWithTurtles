@@ -8,7 +8,7 @@ import turtle
 from tetris_model import Shape
 
 def main():
-    block = Shape(x = 30, y = 30, color = "green", speed = 10)
+    block = Shape(x = 5, y = 0, color = "black", speed = 10)
     block.draw()
     
 if __name__ == '__main__':
