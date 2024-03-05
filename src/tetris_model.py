@@ -69,13 +69,21 @@ class Shape(Block):
         self.width = len(self.shape[0])
 
     # to move left
+    def move_left(self):
+        if self.x > 0:
+            if :
+                self.erase_shape(self)
+                self.x -= 1
 
     # to move right
-
+    def move_right(self):
+        if self.x < 12 - self.width:
+            if :
+                self.erase_shape(self)
+                self.x += 1
 
     # to draw shape
     def draw_shape(self):
-
         for y in range(self.height):
             for x in range(self.width):
                 if (self.shape[y][x] == 1):
@@ -103,11 +111,19 @@ class Shape(Block):
         self.erase_shape(self)
         rotated_shape = []
 
-        for b in range(7):
-            pen.color(colors[b])
-            screen_x, screen_y = self.x*20, self.y*20
-            pen.goto(screen_x, screen_y+b*25)
-            pen.stamp()
+        for x in range(len(self.shape[0])):
+            new_row = []
+            for y in range(len(self.shape)-1, -1, -1):
+                new_row.append(self.shape[y][x])
+            rotated_shape,append(new_row)
+
+            right_side = self.x + len(rotated_shape[0])
+
+            if right_side < len():
+                self.shape = rotated_shape
+                # update the height and width
+                self.height = len(self.shape)
+                self.width = len(self.shape[0])
 
 class Tetris:
     """docstring for Tetris"""
@@ -124,42 +140,64 @@ pen.speed(self.speed)
 pen.shape("square")
 pen.setundbuffer(None)
 
-pen.color(self.color)
-colors = ["black", "lightblue", "blue", "orange", "yellow", "green", "purple", "red"]
+# draw grid
+def draw_grid(self):
+    pen.clear()
 
-def draw_score(self, score):
-    pen = turtle.Turtle()
+    colors = ["black", "lightblue", "blue", "orange", "yellow", "green", "purple", "red"]
+    
+    for b in range(7):
+        pen.color(colors[b])
+        screen_x, screen_y = self.x*20, self.y*20
+        pen.goto(screen_x, screen_y+b*25)
+        pen.stamp()
+
+# check the grid
+def check_grid(self):
+    # check if each row is full
+
+# draw the score
+def draw_score(pen, score):
     pen.color("blue")
     pen.hideturtle()
     pen.goto(0, 0)
     pen.write("Score: {}".format(score), move=False, align="left", font=("Arial", 24, "normal"))
 
+# put the shape in the grid
 
+# draw the inital grid
+
+# to have control panels
 wn.listen()
-wn.inkeypress("a")
-wn.inkeypress("d")
-wn.inkeypress("space")
+wn.inkeypress(lambda: shape.move_left(), "a")
+wn.inkeypress(lambda: shape.move_right(), "d")
+wn.inkeypress(lambda: shape.rotate(), "space")
 
 # set the score to 0
 score = 0
 draw_score(pen, score)
 
 # main game loop
-
 while True:
     wn.update()
 
     # Move the shape
     # open row
     # check for the bottom
+    if :
+        pass
 
     # check for collision wit next row
-
+    elif :
         # erase the current shape
 
         # move the shape by 1
 
         # draw the shape again
+        pass
+
+    else:
+        pass
 
     # draw the screen
     draw_score(pen, score)
