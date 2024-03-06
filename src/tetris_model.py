@@ -69,61 +69,88 @@ class Shape(Block):
         self.width = len(self.shape[0])
 
     # to move left
-    def move_left(self):
+    def move_left(self, grid):
         if self.x > 0:
-            if :
-                self.erase_shape(self)
+            if grid[self.y][self.x - 1] == 0:
+                self.erase_shape(grid)
                 self.x -= 1
 
     # to move right
-    def move_right(self):
+    def move_right(self, grid):
         if self.x < 12 - self.width:
-            if :
-                self.erase_shape(self)
+            if grid[self.y][self.x + self.width]== 0:
+                self.erase_shape(grid)
                 self.x += 1
 
     # to draw shape
-    def draw_shape(self):
-        for y in range(self.height):
-            for x in range(self.width):
-                if (self.shape[y][x] == 1):
-                    pass
+    def draw_shape(self, grid):
+        for h in range(self.height):
+            for w in range(self.width):
+                if (self.shape[h][w] == 1):
+                    grid[self.y + h][self.x + w] = self.color
 
     # to erase shape
-    def erase_shape(self):
-        for y in range(self.height):
-            for x in range(self.width):
-                if (self.shape[y][x] == 1):
-                    pass
+    def erase_shape(self, grid):
+        for h in range(self.height):
+            for w in range(self.width):
+                if (self.shape[h][w] == 1):
+                    grid[self.y + h][self.x + w] = 0
 
     # can move if reaches to bottom of screen
-    def can_move(self):
+    def can_move(self. grid):
         result = True
-        for x in range(self.width):
+        for w in range(self.width):
             # check if bottom is a 1
-            if (self.shape[self.height-1][x] == 1):
-                if :
+            if (self.shape[self.height-1][w] == 1):
+                if (grid[self.y + self.height][self.x + w] != 0):
                     result = False
         return result
 
-    def rotate(self):
+    def rotate(self, grid):
         # first erase the shape
-        self.erase_shape(self)
+        self.erase_shape(grid)
         rotated_shape = []
 
-        for x in range(len(self.shape[0])):
+        for s in range(len(self.shape[0])):
             new_row = []
-            for y in range(len(self.shape)-1, -1, -1):
-                new_row.append(self.shape[y][x])
+            for ls in range(len(self.shape)-1, -1, -1):
+                new_row.append(self.shape[ls][s])
             rotated_shape,append(new_row)
 
             right_side = self.x + len(rotated_shape[0])
 
-            if right_side < len():
+            if right_side < len(grid[0]):
                 self.shape = rotated_shape
                 # update the height and width
                 self.height = len(self.shape)
                 self.width = len(self.shape[0])
+
+grid = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+]
 
 class Tetris:
     """docstring for Tetris"""
@@ -143,35 +170,59 @@ pen.setundbuffer(None)
 # draw grid
 def draw_grid(self):
     pen.clear()
+    top, left = self.x, self.y
 
     colors = ["black", "lightblue", "blue", "orange", "yellow", "green", "purple", "red"]
     
-    for b in range(7):
-        pen.color(colors[b])
-        screen_x, screen_y = self.x*20, self.y*20
-        pen.goto(screen_x, screen_y+b*25)
-        pen.stamp()
+    for g in range(len(grid)):
+        for lg in range(len(grid[0])):
+            screen_x, screen_y = left + (lg * 20), top - (g * 20)
+            color_number = grid[lg][g]
+            color = colors[color_number]
+            pen.color(color)
+            pen.goto(screen_x, screen_y)
+            pen.stamp()
 
 # check the grid
 def check_grid(self):
     # check if each row is full
+    y = 23
+    while y > 0:
+        is_full = True
+        for x in range(0, 12):
+            if grid[y][x] == 0:
+                is_full = False
+                y -= 1
+                break
+        if is_full:
+            global score
+            score += 10
+            draw_score(pen, score)
+            for copy_y in range(y, 0, -1):
+                for copy_x in range(0, 12):
+                    grid[copy_y][copy_x] = grid[copy_y-1][copy_x]
 
 # draw the score
 def draw_score(pen, score):
     pen.color("blue")
     pen.hideturtle()
-    pen.goto(0, 0)
+    pen.goto(self.x, self.y)
     pen.write("Score: {}".format(score), move=False, align="left", font=("Arial", 24, "normal"))
 
+# create †he basic shape for the start of the game
+shape = Shape()
+
 # put the shape in the grid
+grid[shape.y][shape.x] = shape.color
 
 # draw the inital grid
+draw_grid(pen, grid)
 
 # to have control panels
 wn.listen()
-wn.inkeypress(lambda: shape.move_left(), "a")
-wn.inkeypress(lambda: shape.move_right(), "d")
-wn.inkeypress(lambda: shape.rotate(), "space")
+wn.inkeypress(lambda: shape.move_left(grid), "a")
+wn.inkeypress(lambda: shape.move_right(grid), "d")
+wn.inkeypress(lambda: shape.rotate(grid), "space")
 
 # set the score to 0
 score = 0
@@ -184,22 +235,27 @@ while True:
     # Move the shape
     # open row
     # check for the bottom
-    if :
-        pass
+    if shape.y == 23 - shape.height + 1:
+        shape = Shape()
+        check_grid(grid)
 
-    # check for collision wit next row
-    elif :
+    # check for collision with next row
+    elif shape.can_move(grid):
         # erase the current shape
+        shape.erase_shape(grid)
 
         # move the shape by 1
+        shape.y += 1
 
         # draw the shape again
-        pass
+        shape.draw_shape(grid)
 
     else:
-        pass
+        shape = Shape()
+        check_grid(grid)
 
     # draw the screen
+    draw_grid(pen, grid)
     draw_score(pen, score)
 
     time.sleep(delay)
