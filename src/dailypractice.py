@@ -1,5 +1,3 @@
-
-
 def hw2_28(numbers: list):
 
 	result = [num for num in numbers if num < 0]
@@ -12,10 +10,31 @@ def hw3_06(receivedDict: dict):
 	outcome = [val for (key, val) in receivedDict.items() if type(key) == int]
 	return outcome
 
+class Student:
+	"""docstring for Student"""
+	def __init__(self, firstName: str, lastName: str, age: int):
+		self.firstName = firstName
+		self.lastName = lastName
+		self.age = age
+
+# Write a function that returns the age of a student
+def returnAge(student: Student):
+	return student.age
+
+def hw3_13(listOfStudents: list[Student]) -> Student:
+
+	outcome = max(listOfStudents, key=returnAge)
+	return outcome
+
 if __name__ == '__main__':
-	test_method = hw3_06
-	args = {1:2,-3:-5,3:-10}
-	expected = [2,-5,-10]
+	test_method = hw3_13
+	args = [Student("Billy", "Johnson", 15),
+			Student("Betty", "Bepot", 17),
+			Student("Michael", "Jordan", 20),
+			Student("Rose", "Gammine", 16),
+			Student("Kevin", "Faire", 13)]
+
+	expected = args[2]
 
 	method_name = test_method.__name__
 
