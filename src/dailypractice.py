@@ -26,8 +26,11 @@ def hw3_13(listOfStudents: list[Student]) -> Student:
 	outcome = max(listOfStudents, key=returnAge)
 	return outcome
 
+def hw3_20(self):
+	pass
+
 if __name__ == '__main__':
-	test_method = hw3_13
+	test_method = hw3_20
 	args = [Student("Billy", "Johnson", 15),
 			Student("Betty", "Bepot", 17),
 			Student("Michael", "Jordan", 20),

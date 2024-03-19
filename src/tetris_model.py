@@ -37,17 +37,53 @@ class Block:
         self.y = y
         self.color = color
         self.speed = speed
+        self.height = 0
+        self.weight = 0
 
-    def draw(self):
-        raise NotImplementedError
+    # create the drawing pen
+    pen = turtle.Turtle()
+
+    def block_draw(self, pen):
+        pen.penup()
+        pen.speed(self.speed)
+        pen.shape("square")
+        pen.setundobuffer(None)
+
+        pen.clear()
+        top, left = self.x, self.y
+
+        colors = ["black", "lightblue", "blue", "orange", "yellow", "green", "purple", "red"]
+
+        for h in range(len(self.height)):
+            for w in range(len(self.weigh)):
+                screen_x, screen_y = left + (h * 20), top - (w * 20)
+                color_number = [h][w]
+                color = colors[color_number]
+                pen.color(color)
+                pen.goto(screen_x, screen_y)
+                pen.stamp()
+
+    # draw the score
+    def draw_score(pen, score):
+        pen.color("blue")
+        pen.hideturtle()
+        pen.goto(self.x, self.y)
+        pen.write("Score: {}".format(score), move=False, align="left", font=("Arial", 24, "normal"))
 
 class Shape:
     """docstring for Shape"""
     # to draw the Shape
-    def __init__(self, listOfBlocks: list[Block], shapeType: ShapeType):
+    def __init__(self, listOfBlocks: list[Block], shapeType: Type):
         # Block Shape
         self.listOfBlocks = listOfBlocks
         self.shapeType = shapeType
+
+    # create the drawing pen
+    pen = turtle.Turtle()
+
+    def shape_draw(self, pen):
+        pen.up()
+        pen.shape(shapeType)
 
 class Tetris:
     """docstring for Tetris"""
@@ -56,54 +92,32 @@ class Tetris:
         self.fallingShapeState = fallingBlockState
         self.existingShapeState = existingShapeState
         self.score = score
-
-# create the drawing pen
-pen = turtle.Turtle()
-pen.penup()
-#pen.speed(self.speed)
-pen.shape("square")
-pen.setundobuffer(None)
-
-pen.clear()
-#top, left = self.x, self.y
-
-colors = ["black", "lightblue", "blue", "orange", "yellow", "green", "purple", "red"]
-
-for b in colors:
-    pass
     
-# draw the score
-def draw_score(pen, score):
-    pen.color("blue")
-    pen.hideturtle()
-    #pen.goto(self.x, self.y)
-    pen.write("Score: {}".format(score), move=False, align="left", font=("Arial", 24, "normal"))
-
 # to have control panels
 
 # set the score to 0
-score = 0
-draw_score(pen, score)
+# score = 0
+# draw_score(pen, score)
 
 # main game loop
-while True:
-    wn.update()
+# while True:
+#     wn.update()
 
-    # Move the shape
-    # open row
-    # check for the bottom
+#     # Move the shape
+#     # open row
+#     # check for the bottom
 
-    # check for collision with next row
+#     # check for collision with next row
     
-        # erase the current shape
+#         # erase the current shape
 
-        # move the shape by 1
+#         # move the shape by 1
 
-        # draw the shape again
+#         # draw the shape again
 
-    # draw the screen
-    draw_score(pen, score)
+#     # draw the screen
+#     draw_score(pen, score)
 
-    time.sleep(delay)
+#     time.sleep(delay)
 
 #wn.mainloop()
