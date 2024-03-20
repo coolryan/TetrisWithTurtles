@@ -1,3 +1,5 @@
+from typing import Any
+
 def hw2_28(numbers: list):
 
 	result = [num for num in numbers if num < 0]
@@ -26,23 +28,27 @@ def hw3_13(listOfStudents: list[Student]) -> Student:
 	outcome = max(listOfStudents, key=returnAge)
 	return outcome
 
-def hw3_20(self):
-	pass
+def hw3_20(listOfValues: list[Any]):
+	counter = {}
+
+	for value in listOfValues:
+		if value in counter:
+			counter[value] += 1
+		elif value not in counter:
+			counter[value] = 1
+
+	outcome = max(counter, key=lambda k: counter[k])
+	return outcome
 
 if __name__ == '__main__':
 	test_method = hw3_20
-	args = [Student("Billy", "Johnson", 15),
-			Student("Betty", "Bepot", 17),
-			Student("Michael", "Jordan", 20),
-			Student("Rose", "Gammine", 16),
-			Student("Kevin", "Faire", 13)]
+	args = [8, "i", Student("Mikey", "Jordan", 15), True, "sgnjigeehgjhjehj", 100, 100, False]
 
-	expected = args[2]
+	expected = 100
 
 	method_name = test_method.__name__
 
 	result = test_method(args)
 	print(f"Calling {method_name}({args})")
 
-	print(f"Result: {result == expected} Returned: {result} Expected: {expected}")
-	
+	print(f"Result: {result == expected}, Returned: {result}, Expected: {expected}")
