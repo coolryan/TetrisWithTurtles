@@ -40,15 +40,28 @@ def hw3_20(listOfValues: list[Any]):
 	outcome = max(counter, key=lambda k: counter[k])
 	return outcome
 
-if __name__ == '__main__':
-	test_method = hw3_20
-	args = [8, "i", Student("Mikey", "Jordan", 15), True, "sgnjigeehgjhjehj", 100, 100, False]
+def hw4_12(numbers: int):
+	arr = []
+	lengthNumbers = len(numbers)
 
-	expected = 100
+	for index in range(lengthNumbers):
+		if index == 0:
+			result = numbers[index]
+			arr.append(result)
+		else:
+			result = numbers[index] + numbers[index - 1] 
+			arr.append(result)
+
+	return arr
+
+if __name__ == '__main__':
+	test_method = hw4_12
+
+	args = [3, 2, 4, 6]
+	expected = [3, 5, 6, 10]
 
 	method_name = test_method.__name__
-
 	result = test_method(args)
-	print(f"Calling {method_name}({args})")
 
+	print(f"\nCalling {method_name}({args})")
 	print(f"Result: {result == expected}, Returned: {result}, Expected: {expected}")
