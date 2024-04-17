@@ -54,14 +54,26 @@ def hw4_12(numbers: int):
 
 	return arr
 
-if __name__ == '__main__':
-	test_method = hw4_12
+def hw4_17(strList1: list[str], strList2: list[str]):
 
-	args = [3, 2, 4, 6]
-	expected = [3, 5, 6, 10]
+	strDictionary = {strList1[item]: strList2[item] for item in range(len(strList1))}
+
+	return strDictionary
+
+if __name__ == '__main__':
+	test_method = hw4_17
+
+	lst1 = ["1", "2", "3", "4"]
+	lst2 = [ "Captain", "Ploit", "Conductor", "Millionarie"]
+	expected = {
+		"1": "Captain",
+		"2": "Ploit",
+		"3": "Conductor",
+		"4": "Millionarie",
+	}
 
 	method_name = test_method.__name__
-	result = test_method(args)
+	result = test_method(lst1, lst2)
 
-	print(f"\nCalling {method_name}({args})")
+	print(f"\nCalling {method_name}({lst1}, {lst2})")
 	print(f"Result: {result == expected}, Returned: {result}, Expected: {expected}")
