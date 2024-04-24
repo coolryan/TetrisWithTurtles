@@ -81,21 +81,17 @@ class Shape:
 
     def initiate_shape(self):
         """ Create the list of blocks according to its shape type """
-        if (self.shapeType == ShapeType.I_TETROMINO or self.shapeType == ShapeType.O_TETROMINO or 
-            self.shapeType == ShapeType.T_TETROMINO or self.shapeType == ShapeType.L_TETROMINO or
-            self.shapeType == ShapeType.J_TETROMINO or self.shapeType == ShapeType.S_TETROMINO or
-            self.shapeType == ShapeType.Z_TETROMINO
-        ):
-            shapeTypes = randam.choices(shapeType, k=len(shapeType))
-            for i in range(shapeTypes):
-                self.listOfBlocks[i] = Block(this.x, this.y, "red", 5)
-                self.listOfBlocks[i] = Block(this.x, this.y, "lightblue", 10)
-                self.listOfBlocks[i] = Block(this.x, this.y, "blue", 15)
-                self.listOfBlocks[i] = Block(this.x, this.y, "orange", 20)
-                self.listOfBlocks[i] = Block(this.x, this.y, "yellow", 25)
-                self.listOfBlocks[i] = Block(this.x, this.y, "green", 30)
-                self.listOfBlocks[i] = Block(this.x, this.y, "purple", 35)
+        if (self.shapeType == ShapeType.I_TETROMINO):
 
+            for i in self.shapeType:
+                yCoord = i+10
+
+            self.listOfBlocks[0] = Block(self.x, yCoord, "red", 5)
+            self.listOfBlocks[1] = Block(self.x, yCoord, "red", 5)
+            self.listOfBlocks[2] = Block(self.x, yCoord, "red", 5)
+            self.listOfBlocks[3] = Block(self.x, yCoord, "red", 5)
+            self.listOfBlocks[4] = Block(self.x, yCoord, "red", 5)
+            
     # create the drawing pen
     pen = turtle.Turtle()
 
@@ -103,6 +99,8 @@ class Shape:
         pen.up()  
         pen.shape(shapeType)
         # Go through the shape's blocks and draw them.
+        for i in self.shapeType:
+            pass
 
 class Tetris:
     """docstring for Tetris"""

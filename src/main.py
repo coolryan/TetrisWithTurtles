@@ -10,7 +10,7 @@ from tetris_model import Shape
 def main():
     # Create shape
     # Draw Shape
-    block = Shape(x = 5, y = 0, color = "black", speed = 10)
+    block = Shape(x = 5, y = 5, color = "black", speed = 10)
     block.block_draw()
     
 if __name__ == '__main__':

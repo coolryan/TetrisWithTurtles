@@ -60,20 +60,29 @@ def hw4_17(strList1: list[str], strList2: list[str]):
 
 	return strDictionary
 
-if __name__ == '__main__':
-	test_method = hw4_17
+def hw4_24(listOfstrOrint: list[Any]):
+	
+	res, outcome = 0, ""
 
-	lst1 = ["1", "2", "3", "4"]
-	lst2 = [ "Captain", "Ploit", "Conductor", "Millionarie"]
-	expected = {
-		"1": "Captain",
-		"2": "Ploit",
-		"3": "Conductor",
-		"4": "Millionarie",
-	}
+	for value in listOfstrOrint:
+		if isinstance(value, int):
+			res += value
+
+		elif isinstance(value, str):
+			outcome += value
+
+	result = (res, outcome)
+
+	return result
+
+if __name__ == '__main__':
+	test_method = hw4_24
+
+	args = [1, "b", 4, "h", 100, "Conductor"]
+	expected = (105, "bhConductor")
 
 	method_name = test_method.__name__
-	result = test_method(lst1, lst2)
+	result = test_method(args)
 
-	print(f"\nCalling {method_name}({lst1}, {lst2})")
+	print(f"\nCalling {method_name}({args})")
 	print(f"Result: {result == expected}, Returned: {result}, Expected: {expected}")
