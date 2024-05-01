@@ -5,20 +5,14 @@
     This will represents the game
     Date: Feb, 19, 2024
 """
-from enum import Enum
+
+# import libraries
 import random
 import time
-
 import turtle
 
-class ShapeType(Enum):
-    I_TETROMINO = "I_TETROMINO"
-    O_TETROMINO = "O_TETROMINO"
-    T_TETROMINO = "T_TETROMINO"
-    L_TETROMINO = "L_TETROMINO"
-    J_TETROMINO = "J_TETROMINO"
-    S_TETROMINO = "S_TETROMINO"
-    Z_TETROMINO = "Z_TETROMINO"
+# import py file
+from src.constants import BLOCK_HEIGHT, ShapeType
 
 # turtle size default is 20x20
 # setup window screen
@@ -30,85 +24,107 @@ wn.tracer(0)
 
 delay = 0.1
 
+# Block class
 class Block:
     """docstring for Block"""
+    # constructor
     def __init__(self, x: int = 0, y: int = 0, color: str = "black", speed: int = 0):
-        self.x = x
-        self.y = y
+        self.x, self.y = x, y
         self.color = color
         self.speed = speed
-        self.height = 0
-        self.weight = 0
+        self.height = BLOCK_HEIGHT
 
-    # create the drawing pen
-    pen = turtle.Turtle()
-
-    def block_draw(self, pen):
+    # draw method
+    def draw(self, pen):
         pen.penup()
-        pen.speed(self.speed)
-        pen.shape("square")
+        pen.hideturtle()
+
+        pen.color(self.color)
+        pen.fillcolor(self.color)
+
+        pen.begin_fill()
+
+        pX, pY = self.x, self.y
+        pen.goto(pX, pY)
+        pen.down()
+
+        pX += BLOCK_HEIGHT
+        pen.goto(pX, pY)
+        pY += BLOCK_HEIGHT
+        pen.goto(pX, pY)
+
+        pX -= BLOCK_HEIGHT
+        pen.goto(pX, pY)
+        pY -= BLOCK_HEIGHT
+        pen.goto(pX, pY)
+
+        pen.end_fill()
 
         pen.clear()
-        top, left = self.x, self.y
 
-        colors = ["black", "lightblue", "blue", "orange", "yellow", "green", "purple", "red"]
-
-        for h in range(len(self.height)):
-            for w in range(len(self.weigh)):
-                screen_x, screen_y = left + (h * 20), top - (w * 20)
-                color_number = [h][w]
-                color = colors[color_number]
-                pen.color(color)
-                pen.goto(screen_x, screen_y)
-                pen.stamp()
-
-    # draw the score
-    def draw_score(pen, score):
-        pen.color("blue")
-        pen.hideturtle()
-        pen.goto(self.x, self.y)
-        pen.write("Score: {}".format(score), move=False, align="left", font=("Arial", 24, "normal"))
-
+# Shape class
 class Shape:
     """docstring for Shape"""
-    # to draw the Shape
+    # constructor
     def __init__(self, x: int, y: int, shapeType: type):
         # Block Shape
         self.listOfBlocks = []
         self.shapeType = shapeType
-        self.x = x
-        self.y = y
+        self.x, self.y = x, y
+        self.initiate_shape()
 
+    # initiate shape method
     def initiate_shape(self):
         """ Create the list of blocks according to its shape type """
-        if (self.shapeType == ShapeType.I_TETROMINO):
+        if self.shapeType == ShapeType.I_TETROMINO:
+            self.listOfBlocks.append(Block(self.x, self.y, "red", 5))
+            self.listOfBlocks.append(Block(self.x, self.y+BLOCK_HEIGHT, "red", 5))
+            self.listOfBlocks.append(Block(self.x, (self.y+BLOCK_HEIGHT*2), "red", 5))
+            self.listOfBlocks.append(Block(self.x, (self.y+BLOCK_HEIGHT*3), "red", 5))
+            self.listOfBlocks.append(Block(self.x, (self.y+BLOCK_HEIGHT*4), "red", 5))
 
-            for i in self.shapeType:
-                yCoord = i+10
-
-            self.listOfBlocks[0] = Block(self.x, yCoord, "red", 5)
-            self.listOfBlocks[1] = Block(self.x, yCoord, "red", 5)
-            self.listOfBlocks[2] = Block(self.x, yCoord, "red", 5)
-            self.listOfBlocks[3] = Block(self.x, yCoord, "red", 5)
-            self.listOfBlocks[4] = Block(self.x, yCoord, "red", 5)
-            
-    # create the drawing pen
-    pen = turtle.Turtle()
-
-    def shape_draw(self, pen):
-        pen.up()  
-        pen.shape(shapeType)
-        # Go through the shape's blocks and draw them.
-        for i in self.shapeType:
+        elif self.shapeType == ShapeType.O_TETROMINO:
+            pass
+        elif self.shapeType == ShapeType.T_TETROMINO:
+            pass
+        elif self.shapeType == ShapeType.L_TETROMINO:
+            pass
+        elif self.shapeType == ShapeType.J_TETROMINO:
+            pass
+        elif self.shapeType == ShapeType.S_TETROMINO:
+            pass
+        elif self.shapeType == ShapeType.Z_TETROMINO:
             pass
 
+    # draw method
+    def draw(self, pen):  
+        # Go through the shape's blocks and draw them.
+        for block in self.listOfBlocks:
+            print("Drawing block: " + str(block.x) + "," + str(block.y))
+            block.draw(pen)
+
+# Tertis class
 class Tetris:
     """docstring for Tetris"""
+    # constructor
     def __init__(self, upcomingShapeState: list[Shape], fallingShapeState: list[Shape], existingShapeState: list[Shape], score: int = 0):
         self.upcomingShapeState = upcomingShapeState
-        self.fallingShapeState = fallingBlockState
+        self.fallingShapeState = fallingShapeState
         self.existingShapeState = existingShapeState
         self.score = score
+        self.pen = turtle.Turtle()
+
+    # draw method
+    def draw(self):
+        for shape in self.fallingShapeState:
+            shape.draw(self.pen)
+
+    # score method
+    def score(pen, score):
+        pen.color("blue")
+        pen.hideturtle()
+        pen.goto(self.x, self.y)
+        pen.write("Score: {}".format(score), move=False, align="left", font=("Arial", 24, "normal"))
     
 # to have control panels
 
