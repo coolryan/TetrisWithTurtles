@@ -75,8 +75,11 @@ def hw4_24(listOfstrOrint: list[Any]):
 
 	return result
 
+def hw_5_08(self):
+	pass
+
 if __name__ == '__main__':
-	test_method = hw4_24
+	test_method = hw5_08
 
 	args = [1, "b", 4, "h", 100, "Conductor"]
 	expected = (105, "bhConductor")

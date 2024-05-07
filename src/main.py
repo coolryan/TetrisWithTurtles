@@ -8,8 +8,8 @@
 import turtle
 
 # import py files
-from src.constants import BLOCK_HEIGHT, ShapeType
-from src.tetris_model import Shape, Tetris
+from constants import BLOCK_HEIGHT, ShapeType
+from tetris_model import Shape, Tetris
 
 # main method
 def main():
