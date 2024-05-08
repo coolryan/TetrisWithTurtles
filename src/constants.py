@@ -8,7 +8,11 @@
 # import library
 from enum import Enum
 
-# constant
+COLOR = (
+    "red", "blue", "purple", "lightblue", 
+    "yellow", "orange", "green", "pink", "grey"
+)
+
 BLOCK_HEIGHT = 50
 
 # ShapeType class
