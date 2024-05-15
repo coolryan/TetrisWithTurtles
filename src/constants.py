@@ -8,12 +8,20 @@
 # import library
 from enum import Enum
 
-COLOR = (
-    "red", "blue", "purple", "lightblue", 
-    "yellow", "orange", "green", "pink", "grey"
-)
-
 BLOCK_HEIGHT = 50
+
+class COLOR(Enum):
+    """docstring for COLOR"""
+    RED = "red"
+    BLUE = "blue"
+    LIGHTBLUE = "lightblue"
+    PURPLE = "purple"
+    YELLOW = "yellow"
+    ORANGE = "orange"
+    GREEN = "green"
+    PINK = "pink"
+    GREY = "grey"
+    BLACK = "black"
 
 # ShapeType class
 class ShapeType(Enum):

@@ -14,13 +14,6 @@ import turtle
 # import py file
 from constants import BLOCK_HEIGHT, ShapeType, COLOR
 
-# turtle size default is 20x20
-# setup window screen
-wn = turtle.Screen()
-wn.title("TETRIS BY Ryan Setaruddin")
-wn.bgcolor("black")
-wn.setup(width=600, height=800)
-wn.tracer(0)
 
 delay = 0.1
 
@@ -28,9 +21,9 @@ delay = 0.1
 class Block:
     """docstring for Block"""
     # constructor
-    def __init__(self, x: int = 0, y: int = 0, color: str = COLOR, speed: int = 0):
+    def __init__(self, x: int = 0, y: int = 0, color: COLOR = COLOR.BLACK, speed: int = 0):
         self.x, self.y = x, y
-        self.color = color
+        self.color = color.value
         self.speed = speed
         self.height = BLOCK_HEIGHT
 
@@ -64,10 +57,10 @@ class Block:
 class Shape:
     """docstring for Shape"""
     # constructor
-    def __init__(self, x: int, y: int, shapeType: type):
+    def __init__(self, x: int, y: int, shapeType: type, color: COLOR | None = None):
         # Block Shape
         self.listOfBlocks = []
-        self.color = COLOR
+        self.color = color
         self.shapeType = shapeType
         self.x, self.y = x, y
         self.speed = 5
@@ -77,53 +70,65 @@ class Shape:
     def initiate_shape(self):
         """ Create the list of blocks according to its shape type """
         if self.shapeType == ShapeType.I_TETROMINO:
-            self.listOfBlocks.append(Block(self.x, self.y, self.color, self.speed+5))
-            self.listOfBlocks.append(Block(self.x, self.y+BLOCK_HEIGHT, self.color, self.speed+5))
-            self.listOfBlocks.append(Block(self.x, (self.y+BLOCK_HEIGHT*2), self.color, self.speed+5))
-            self.listOfBlocks.append(Block(self.x, (self.y+BLOCK_HEIGHT*3), self.color, self.speed+5))
-            self.listOfBlocks.append(Block(self.x, (self.y+BLOCK_HEIGHT*4), self.color, self.speed+5))
+            color = self.color if self.color else COLOR.RED
+            self.listOfBlocks.append(Block(self.x, self.y, color, self.speed+5))
+            self.listOfBlocks.append(Block(self.x, self.y+BLOCK_HEIGHT, color, self.speed))
+            self.listOfBlocks.append(Block(self.x, (self.y+BLOCK_HEIGHT*2), color, self.speed))
+            self.listOfBlocks.append(Block(self.x, (self.y+BLOCK_HEIGHT*3), color, self.speed))
+            self.listOfBlocks.append(Block(self.x, (self.y+BLOCK_HEIGHT*4), color, self.speed))
 
         elif self.shapeType == ShapeType.O_TETROMINO:
-            self.listOfBlocks.append(Block(self.x, self.y, self.color, self.speed+10))
-            self.listOfBlocks.append(Block(self.x+BLOCK_HEIGHT, self.y, self.color, self.speed+10))
-            self.listOfBlocks.append(Block(self.x+BLOCK_HEIGHT, self.y-BLOCK_HEIGHT, self.color, self.speed+10))
-            self.listOfBlocks.append(Block(self.x, self.y-BLOCK_HEIGHT, self.color, self.speed+10))
+            color = self.color if self.color else COLOR.YELLOW
+            self.listOfBlocks.append(Block(self.x, self.y, color, self.speed))
+            self.listOfBlocks.append(Block(self.x+BLOCK_HEIGHT, self.y, color, self.speed))
+            self.listOfBlocks.append(Block(self.x+BLOCK_HEIGHT, self.y-BLOCK_HEIGHT, color, self.speed))
+            self.listOfBlocks.append(Block(self.x, self.y-BLOCK_HEIGHT, color, self.speed))
 
         elif self.shapeType == ShapeType.T_TETROMINO:
-            self.listOfBlocks.append(Block(self.x, self.y, self.color, self.speed+5))
-            self.listOfBlocks.append(Block(self.x+BLOCK_HEIGHT, self.y, self.color, self.speed+5))
-            self.listOfBlocks.append(Block(self.x+BLOCK_HEIGHT*2, self.y, self.color, self.speed+5))
-            self.listOfBlocks.append(Block(self.x+BLOCK_HEIGHT, self.y+BLOCK_HEIGHT, self.color, self.speed+5))
+            color = self.color if self.color else COLOR.GREEN
+            self.listOfBlocks.append(Block(self.x, self.y, color, self.speed))
+            self.listOfBlocks.append(Block(self.x+BLOCK_HEIGHT, self.y, color, self.speed))
+            self.listOfBlocks.append(Block(self.x+BLOCK_HEIGHT*2, self.y, color, self.speed))
+            self.listOfBlocks.append(Block(self.x+BLOCK_HEIGHT, self.y+BLOCK_HEIGHT, color, self.speed))
 
         elif self.shapeType == ShapeType.L_TETROMINO:
-            self.listOfBlocks.append(Block(self.x, self.y, self.color, self.speed+5))
-            self.listOfBlocks.append(Block(self.x, self.y-BLOCK_HEIGHT, self.color, self.speed+5))
-            self.listOfBlocks.append(Block(self.x, self.y-BLOCK_HEIGHT*2, self.color, self.speed+5))
-            self.listOfBlocks.append(Block(self.x+BLOCK_HEIGHT, self.y-BLOCK_HEIGHT*2, self.color, self.speed+5))
+            color = self.color if self.color else COLOR.BLUE
+            self.listOfBlocks.append(Block(self.x, self.y, color, self.speed))
+            self.listOfBlocks.append(Block(self.x, self.y-BLOCK_HEIGHT, color, self.speed))
+            self.listOfBlocks.append(Block(self.x, self.y-BLOCK_HEIGHT*2, color, self.speed))
+            self.listOfBlocks.append(Block(self.x+BLOCK_HEIGHT, self.y-BLOCK_HEIGHT*2, color, self.speed))
 
         elif self.shapeType == ShapeType.J_TETROMINO:
-            self.listOfBlocks.append(Block(self.x, self.y, self.color, self.speed+5))
-            self.listOfBlocks.append(Block(self.x, self.y-BLOCK_HEIGHT, self.color, self.speed+5))
-            self.listOfBlocks.append(Block(self.x, self.y-BLOCK_HEIGHT*2, self.color, self.speed+5))
-            self.listOfBlocks.append(Block(self.x-BLOCK_HEIGHT, self.y-BLOCK_HEIGHT*2, self.color, self.speed+5))
+            color = self.color if self.color else COLOR.ORANGE
+            self.listOfBlocks.append(Block(self.x, self.y, color, self.speed))
+            self.listOfBlocks.append(Block(self.x, self.y-BLOCK_HEIGHT, color, self.speed))
+            self.listOfBlocks.append(Block(self.x, self.y-BLOCK_HEIGHT*2, color, self.speed))
+            self.listOfBlocks.append(Block(self.x-BLOCK_HEIGHT, self.y-BLOCK_HEIGHT*2, color, self.speed))
 
         elif self.shapeType == ShapeType.S_TETROMINO:
-            self.listOfBlocks.append(Block(self.x, self.y, self.color, self.speed+5))
-            self.listOfBlocks.append(Block(self.x+BLOCK_HEIGHT, self.y, self.color, self.speed+5))
-            self.listOfBlocks.append(Block(self.x+BLOCK_HEIGHT, self.y+BLOCK_HEIGHT, self.color, self.speed+5))
-            self.listOfBlocks.append(Block(self.x+BLOCK_HEIGHT*2, self.y+BLOCK_HEIGHT, self.color, self.speed+5))
+            color = self.color if self.color else COLOR.PURPLE
+            self.listOfBlocks.append(Block(self.x, self.y, color, self.speed))
+            self.listOfBlocks.append(Block(self.x+BLOCK_HEIGHT, self.y, color, self.speed))
+            self.listOfBlocks.append(Block(self.x+BLOCK_HEIGHT, self.y+BLOCK_HEIGHT, color, self.speed))
+            self.listOfBlocks.append(Block(self.x+BLOCK_HEIGHT*2, self.y+BLOCK_HEIGHT, color, self.speed))
 
         elif self.shapeType == ShapeType.Z_TETROMINO:
-            self.listOfBlocks.append(Block(self.x, self.y, self.color, self.speed+5))
-            self.listOfBlocks.append(Block(self.x+BLOCK_HEIGHT, self.y, self.color, self.speed+5))
-            self.listOfBlocks.append(Block(self.x+BLOCK_HEIGHT, self.y-BLOCK_HEIGHT, self.color, self.speed+5))
-            self.listOfBlocks.append(Block(self.x+BLOCK_HEIGHT*2, self.y-BLOCK_HEIGHT, self.color, self.speed+5))
+            color = self.color if self.color else COLOR.PINK
+            self.listOfBlocks.append(Block(self.x, self.y, color, self.speed))
+            self.listOfBlocks.append(Block(self.x+BLOCK_HEIGHT, self.y, color, self.speed))
+            self.listOfBlocks.append(Block(self.x+BLOCK_HEIGHT, self.y-BLOCK_HEIGHT, color, self.speed))
+            self.listOfBlocks.append(Block(self.x+BLOCK_HEIGHT*2, self.y-BLOCK_HEIGHT, color, self.speed))
 
     # draw method
     def draw(self, pen):  
         # Go through the shape's blocks and draw them.
         for block in self.listOfBlocks:
             block.draw(pen)
+
+    # move method
+    def move(self):
+        for block in self.listOfBlocks:
+            block.y -= self.speed
 
 # Tertis class
 class Tetris:
@@ -134,7 +139,17 @@ class Tetris:
         self.fallingShapeState = fallingShapeState
         self.existingShapeState = existingShapeState
         self.score = score
+
+        # turtle size default is 20x20
+        # setup window screen
+        window = turtle.Screen()
+        window.title("TETRIS BY Ryan Setaruddin")
+        window.bgcolor("black")
+        window.setup(width=600, height=800)
+        window.tracer(0)
         self.pen = turtle.Turtle()
+        self.pen.speed(0)
+        self.window = window
 
     # draw method
     def draw(self):
@@ -147,7 +162,26 @@ class Tetris:
         pen.hideturtle()
         pen.goto(self.x, self.y)
         pen.write("Score: {}".format(score), move=False, align="left", font=("Arial", 24, "normal"))
+
+    def move_blocks(self):
+        for shape in self.fallingShapeState:
+            shape.move()
+
+    def start_game(self):
+        global delay
+        is_done = False
+        count = 0
+        while not is_done:
+            self.window.clear()
+            self.window.update()
+            self.move_blocks()
+            self.draw()
+            time.sleep(delay)
+            count += 1
+            if count > 50:
+                is_done = True
     
+
 # to have control panels
 
 # set the score to 0
