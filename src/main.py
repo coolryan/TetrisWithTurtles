@@ -26,7 +26,9 @@ def main():
     ]
     upcomingShapeState = []
     existingShapeState = []
-    tetris = Tetris(upcomingShapeState, fallingShapeState, existingShapeState, 0)
+    game_turtle = turtle.Turtle()
+    game_window = turtle.Screen()
+    tetris = Tetris(game_turtle, game_window, upcomingShapeState, fallingShapeState, existingShapeState)
     tetris.start_game()
 
 # execuate the main program    
@@ -34,4 +36,4 @@ if __name__ == '__main__':
     main()
     turtle.exitonclick()
 
-turtle.mainloop()
+    turtle.mainloop()

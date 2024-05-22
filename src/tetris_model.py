@@ -9,7 +9,7 @@
 # import libraries
 import random
 import time
-import turtle
+from turtle import Screen, Turtle
 
 # import py file
 from constants import BLOCK_HEIGHT, ShapeType, COLOR
@@ -133,7 +133,15 @@ class Shape:
 class Tetris:
     """docstring for Tetris"""
     # constructor
-    def __init__(self, upcomingShapeState: list[Shape], fallingShapeState: list[Shape], existingShapeState: list[Shape], score: int = 0):
+    def __init__(
+        self,
+        game_turtle: Turtle,
+        game_window: Screen,
+        upcomingShapeState: list[Shape],
+        fallingShapeState: list[Shape],
+        existingShapeState: list[Shape],
+        score: int = 0,
+    ):
         self.upcomingShapeState = upcomingShapeState
         self.fallingShapeState = fallingShapeState
         self.existingShapeState = existingShapeState
@@ -141,12 +149,12 @@ class Tetris:
 
         # turtle size default is 20x20
         # setup window screen
-        window = turtle.Screen()
+        window = game_window
         window.title("TETRIS BY Ryan Setaruddin")
         window.bgcolor("black")
         window.setup(width=600, height=800)
-        window.tracer(0)
-        self.pen = turtle.Turtle()
+        window.tracer(0, 0)
+        self.pen = game_turtle
         self.pen.speed(0)
         self.window = window
 
