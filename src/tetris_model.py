@@ -14,7 +14,6 @@ import turtle
 # import py file
 from constants import BLOCK_HEIGHT, ShapeType, COLOR
 
-
 delay = 0.1
 
 # Block class
