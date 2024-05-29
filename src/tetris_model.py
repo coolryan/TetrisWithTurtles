@@ -153,7 +153,7 @@ class Tetris:
         window.title("TETRIS BY Ryan Setaruddin")
         window.bgcolor("black")
         window.setup(width=600, height=800)
-        window.tracer(0, 0)
+        window.tracer(0)
         self.pen = game_turtle
         self.pen.speed(0)
         self.window = window
@@ -164,11 +164,16 @@ class Tetris:
             shape.draw(self.pen)
 
     # score method
-    def score(pen, score):
-        pen.color("blue")
+    def draw_score(pen, score):
         pen.hideturtle()
+        pen.color("blue")
+        pen.fillcolor("blue")
+
+        pen.begin_fill()
         pen.goto(self.x, self.y)
-        pen.write("Score: {}".format(score), move=False, align="left", font=("Arial", 24, "normal"))
+
+        pen.write("Score: {}".format(self.score), move=False, align="left", font=("Arial", 24, "normal"))
+        pen.end_fill()
 
     def move_blocks(self):
         for shape in self.fallingShapeState:
@@ -179,15 +184,14 @@ class Tetris:
         is_done = False
         count = 0
         while not is_done:
-            self.window.clear()
             self.window.update()
             self.move_blocks()
             self.draw()
+            self.window.clear()
             time.sleep(delay)
             count += 1
             if count > 50:
                 is_done = True
-    
 
 # to have control panels
 
